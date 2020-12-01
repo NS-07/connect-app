@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Text, StyleSheet } from "react-native";
-import MapView, { Circle, circle } from "react-native-maps";
+import MapView, { Circle } from "react-native-maps";
 import { ActivityIndicator } from "react-native-paper";
 import { Context as LocationContext } from "../context/LocationContext";
 const Map = () => {

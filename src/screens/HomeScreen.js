@@ -1,37 +1,18 @@
 import "../_mockLocation";
-import React, { useContext, useCallback, useEffect } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import React, { useContext } from "react";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import Map from "../components/Map";
-import { Context as LocationContext } from "../context/LocationContext";
 import useLocation from "../hooks/useLocation";
+import { Context as LocationContext } from "../context/LocationContext";
 import { withNavigationFocus } from "@react-navigation/compat";
-import TrackToggle from "../components/TrackToggle";
-import useSaveLocation from "../hooks/useSaveLocation";
 
 const HomeScreen = ({ isFocused }) => {
-  const [saveUserLocation] = useSaveLocation();
-  const {
-    state: { recording },
-    updateLocation,
-  } = useContext(LocationContext);
-  // useEffect(() => {
-
-  // })
-  const callback = useCallback(
-    (location) => {
-      updateLocation(location);
-      saveUserLocation();
-    },
-    [recording]
-  );
-  const [err] = useLocation(isFocused || recording, callback);
+  const { updateLocation } = useContext(LocationContext);
+  const [err] = useLocation(isFocused, updateLocation);
 
   return (
     <View>
       <Map />
-      <View style={styles.toggleContainer}>
-        <TrackToggle />
-      </View>
       {err ? (
         <View style={styles.errorContainer}>
           <Text style={{ alignSelf: "center" }}>
@@ -53,14 +34,6 @@ const styles = StyleSheet.create({
     zIndex: 10,
     color: "black",
     backgroundColor: "#20639B",
-  },
-  toggleContainer: {
-    backgroundColor: "white",
-    borderRadius: 100,
-    position: "absolute",
-    zIndex: 10,
-    top: 660,
-    left: "84%",
   },
 });
 

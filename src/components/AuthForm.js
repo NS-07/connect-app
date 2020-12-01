@@ -91,7 +91,9 @@ const AuthForm = ({
           )}
           <TouchableOpacity onPress={() => navigation.navigate(screenToGo)}>
             <Text h5 style={{ marginTop: 10, color: "white" }}>
-              Already have an account? {textPlace}
+              {textPlace == "Sign Up"
+                ? "Do not have an account? Sign Up"
+                : "Already have an account? Sign In"}
             </Text>
           </TouchableOpacity>
           {errorMessage ? (

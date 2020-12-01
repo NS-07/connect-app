@@ -46,7 +46,7 @@ const signup = (dispatch) => {
       await AsyncStorage.setItem("token", response.data.token);
       dispatch({ type: "got_token", payload: response.data.token });
     } catch (err) {
-      dispatch({ type: "add_error", payload: "Number is already present" });
+      dispatch({ type: "add_error", payload: "Something went wrong" });
     }
   };
 };

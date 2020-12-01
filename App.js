@@ -8,16 +8,19 @@ import HomeScreen from "./src/screens/HomeScreen";
 import LocationsScreen from "./src/screens/LocationsScreen";
 import AccountScreen from "./src/screens/AccountScreen";
 import ConnectionScreen from "./src/screens/ConnectionScreen";
+import SearchScreen from "./src/screens/SearchScreen";
 import { Context as AuthContext } from "./src/context/AuthContext";
 import { Provider as AuthProvider } from "./src/context/AuthContext";
 import { Entypo } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Provider as LocationProvider } from "./src/context/LocationContext";
 import { Provider as TrackProvider } from "./src/context/TrackContext";
+import { Provider as SearchProvider } from "./src/context/SearchContext";
 
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 const HomeStack = createStackNavigator();
+const LocationStack = createStackNavigator();
 
 function HomeStackScreen() {
   return (
@@ -30,8 +33,38 @@ function HomeStackScreen() {
           headerTitleStyle: { color: "#20639B" },
         }}
       />
-      <HomeStack.Screen name="Connect" component={ConnectionScreen} />
     </HomeStack.Navigator>
+  );
+}
+
+function LocationStackScreen() {
+  return (
+    <LocationStack.Navigator>
+      <LocationStack.Screen
+        name="Locations"
+        component={LocationsScreen}
+        options={{
+          headerStyle: { backgroundColor: "#6EC5E9" },
+          headerTitleStyle: { color: "#20639B" },
+        }}
+      />
+      <LocationStack.Screen
+        name="Connect"
+        component={ConnectionScreen}
+        options={{
+          headerStyle: { backgroundColor: "#6EC5E9" },
+          headerTitleStyle: { color: "#20639B" },
+        }}
+      />
+      <LocationStack.Screen
+        name="Search"
+        component={SearchScreen}
+        options={{
+          headerStyle: { backgroundColor: "#6EC5E9" },
+          headerTitleStyle: { color: "#20639B" },
+        }}
+      />
+    </LocationStack.Navigator>
   );
 }
 
@@ -70,7 +103,7 @@ function App() {
           />
           <Tab.Screen
             name="Locations"
-            component={LocationsScreen}
+            component={LocationStackScreen}
             options={{
               tabBarIcon: ({ color }) => (
                 <Entypo name="location" size={24} color={color} />
@@ -94,12 +127,14 @@ function App() {
 
 export default () => {
   return (
-    <TrackProvider>
-      <LocationProvider>
-        <AuthProvider>
-          <App />
-        </AuthProvider>
-      </LocationProvider>
-    </TrackProvider>
+    <SearchProvider>
+      <TrackProvider>
+        <LocationProvider>
+          <AuthProvider>
+            <App />
+          </AuthProvider>
+        </LocationProvider>
+      </TrackProvider>
+    </SearchProvider>
   );
 };
